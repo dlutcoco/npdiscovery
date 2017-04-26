@@ -1,0 +1,6 @@
+# Auto Configuration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.springframework.cloud.npdiscovery.ribbon.RibbonNetposaAutoConfiguration
+
+org.springframework.cloud.client.discovery.EnableDiscoveryClient=\
+org.springframework.cloud.npdiscovery.NetposaDiscoveryAutoConfiguration
