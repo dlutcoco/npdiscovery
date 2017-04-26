@@ -71,7 +71,6 @@ public class NetposaServiceDiscovery {
         List<NetposaDiscoveryInstanceInfo> serviceList = new ArrayList<>();
         try {
             String res = RegisterHttpClient.getInstance().httpGet(prop.getConnectString() + URL_QUERY_SERVICES + "/" + serviceId, null);
-            System.out.println(res);
             if (JSON.parseObject(res).getInteger("code") != 200) {
                 throw new RuntimeException("getInstancesById error, res=" + res);
             } else {

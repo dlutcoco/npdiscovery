@@ -107,7 +107,6 @@ public class RegisterHttpClient {
                 url += "?" + params;
             }
             
-            System.out.println("url:" + url);
             httpGet = new HttpGet(url);
 
             if (headers != null && headers.size() > 0) {
