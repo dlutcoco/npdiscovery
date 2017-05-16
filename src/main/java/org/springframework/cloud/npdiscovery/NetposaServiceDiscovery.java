@@ -27,22 +27,39 @@ public class NetposaServiceDiscovery {
     }
 
     public void register(ServiceInstance instance) {
+        if (log.isDebugEnabled()) {
+            log.debug("register instance :" + JSON.toJSONString(instance));
+        }
+        
         try {
             String res = RegisterHttpClient.getInstance().httpPostJson(prop.getConnectString() + URL_REGISTER,
                     JSON.toJSONString(TransferUtil.castNpInstance(instance)));
+            
+            if (log.isDebugEnabled()) {
+                log.debug("register instance res :" + res);
+            }
+            
             if (JSON.parseObject(res).getInteger("code") != 200) {
                 throw new RuntimeException("register error, res=" + res);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             log.error("register error...");
         }
     }
 
     public void heart(ServiceInstance instance) {
+        if (log.isDebugEnabled()) {
+            log.debug("heart instance :" + JSON.toJSONString(instance));
+        }
+        
         try {
             String res = RegisterHttpClient.getInstance().httpPostJson(prop.getConnectString() + URL_HEART,
                     JSON.toJSONString(TransferUtil.castNpInstance(instance)));
+            
+            if (log.isDebugEnabled()) {
+                log.debug("heart instance res :" + res);
+            }
+            
             if (JSON.parseObject(res).getInteger("code") != 200) {
                 throw new RuntimeException("heart error, res=" + res);
             }
@@ -52,9 +69,18 @@ public class NetposaServiceDiscovery {
     }
 
     public void unregister(ServiceInstance instance) {
+        if (log.isDebugEnabled()) {
+            log.debug("unregister instance :" + JSON.toJSONString(instance));
+        }
+        
         try {
             String res = RegisterHttpClient.getInstance().httpPostJson(prop.getConnectString() + URL_UNREGISTER,
                     JSON.toJSONString(TransferUtil.castNpInstance(instance)));
+            
+            if (log.isDebugEnabled()) {
+                log.debug("unregister instance res :" + res);
+            }
+            
             if (JSON.parseObject(res).getInteger("code") != 200) {
                 throw new RuntimeException("heart error, res=" + res);
             }
@@ -67,10 +93,19 @@ public class NetposaServiceDiscovery {
         if (serviceId == null) {
             throw new RuntimeException("param serviceId must not be null");
         }
+        
+        if (log.isDebugEnabled()) {
+            log.debug("getInstancesById :" + serviceId);
+        }
 
         List<NetposaDiscoveryInstanceInfo> serviceList = new ArrayList<>();
         try {
             String res = RegisterHttpClient.getInstance().httpGet(prop.getConnectString() + URL_QUERY_SERVICES + "/" + serviceId, null);
+            
+            if (log.isDebugEnabled()) {
+                log.debug("getInstancesById res :" + res);
+            }
+            
             if (JSON.parseObject(res).getInteger("code") != 200) {
                 throw new RuntimeException("getInstancesById error, res=" + res);
             } else {
@@ -84,9 +119,18 @@ public class NetposaServiceDiscovery {
     }
 
     public List<String> getInstanceNames() {
+        if (log.isDebugEnabled()) {
+            log.debug("getInstanceNames:");
+        }
+        
         List<String> serviceNames = new ArrayList<>();
         try {
             String res = RegisterHttpClient.getInstance().httpGet(prop.getConnectString() + URL_QUERY_SERVICES, null);
+            
+            if (log.isDebugEnabled()) {
+                log.debug("getInstanceNames res :" + res);
+            }
+            
             if (JSON.parseObject(res).getInteger("code") != 200) {
                 throw new RuntimeException("getInstancesById error, res=" + res);
             } else {

@@ -9,6 +9,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.PreDestroy;
+
 import org.springframework.boot.context.embedded.EmbeddedServletContainerInitializedEvent;
 import org.springframework.cloud.client.DefaultServiceInstance;
 import org.springframework.cloud.client.ServiceInstance;
@@ -162,5 +164,10 @@ public class NetposaDiscoveryClient
 	private void startRegisterThread(RegisterTask task) {
 		task.getNpClient().register(getLocalServiceInstance());
 		new Timer().scheduleAtFixedRate(task, 5000, 5000);
+	}
+	
+	@PreDestroy
+	public void destroy() {
+	    npClient.unregister(getLocalServiceInstance());
 	}
 }
