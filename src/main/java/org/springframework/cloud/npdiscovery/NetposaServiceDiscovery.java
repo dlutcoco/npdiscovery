@@ -77,7 +77,7 @@ public class NetposaServiceDiscovery {
                 serviceList = JSON.parseObject(res).getJSONObject("data").getJSONArray("services").toJavaList(NetposaDiscoveryInstanceInfo.class);
             }
         } catch (Exception e) {
-            log.error("getInstancesById error...");
+            log.error("getInstancesById error..." + serviceId);
         }
 
         return serviceList;

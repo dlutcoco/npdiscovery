@@ -100,6 +100,10 @@ public class RegisterHttpClient {
     }
 
     public String httpGet(String url, String params, Map<String, String> headers) {
+        if (!url.startsWith("http://")) {
+            url = "http://" + url;
+        }
+        
         HttpGet httpGet = null;
         try {
             // 拼接请求URL

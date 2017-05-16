@@ -46,18 +46,21 @@ public class NetposaDiscoveryRibbonClientConfiguration {
 //    @ConditionalOnProperty(value = "spring.cloud.netposa.discovery.dependency.ribbon.loadbalancer", matchIfMissing = true)
     public ILoadBalancer dependenciesBasedLoadBalancer(ServerList<NetposaServer> serverList, IClientConfig config,
             IPing iPing) {
+        System.out.println("init bean ILoadBalancer");
         return new DependenciesBasedLoadBalancer(serverList, config, iPing);
     }
 
     @Bean
     @ConditionalOnMissingBean
     public IPing healthCheckingRule(NetposaDiscoveryProperties netposaDiscoveryProperties) {
+        System.out.println("init bean IPing");
         return new PingUrl(false, netposaDiscoveryProperties.getDefaultHealthEndpoint());
     }
 
     @Bean
     @ConditionalOnMissingBean
     public ServerList<?> ribbonServerList(IClientConfig config) {
+        System.out.println("init bean ServerList");
         NetposaServerList serverList = new NetposaServerList(this.serviceDiscovery);
         serverList.initWithNiwsConfig(config);
         log.debug(String.format("Server list for Ribbon's non-dependency based load balancing is [%s]", serverList));
